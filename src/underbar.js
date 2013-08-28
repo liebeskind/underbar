@@ -75,7 +75,6 @@ var _ = { };
       if (iterator(num)==true) result.push(collection[num])
     }
     return result;
-
   };
 
   // Produce a duplicate-free version of the array.
@@ -84,7 +83,7 @@ var _ = { };
     for (var i=0; i<array.length;i++){
       if (_.indexOf(result, array[i]) == -1) result.push(array[i]);  
     }
-   return result;
+    return result;
   };
 
 
@@ -93,6 +92,14 @@ var _ = { };
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var results = [];
+    if (array == null) return results;
+    
+    _.each(array, function(value, index, list) {
+      results.push(iterator(value, index, list));
+    });
+    return results;
+
   };
 
   /*
