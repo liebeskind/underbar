@@ -70,10 +70,18 @@ var _ = { };
   _.reject = function(collection, iterator) {
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
+    var result = [];
+    for (var num in collection){
+      if (iterator(num)==true) result.push(collection[num])
+    }
+    return result;
+
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+
+    
   };
 
 
