@@ -80,8 +80,11 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-
-    
+    var result = [];
+    for (var i=0; i<array.length;i++){
+      if (_.indexOf(result, array[i]) == -1) result.push(array[i]);  
+    }
+   return result;
   };
 
 
