@@ -142,8 +142,8 @@ var _ = { };
   _.reduce = function(collection, iterator, initialValue) {
    var counter = null;
     _.each(collection, function (value, index, list){
-      counter = iterator.call(null, counter, value, index, list);
-  })
+      counter = iterator.call(initialValue, counter, value, index, list);
+    })
     return counter;
   };
 
