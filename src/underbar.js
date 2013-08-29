@@ -147,6 +147,11 @@ var _ = { };
   //   }, 0); // should be 6
   //
   _.reduce = function(collection, iterator, initialValue) {
+   var counter = null;
+    _.each(collection, function (value, index, list){
+      counter = iterator.call(null, counter, value, index, list);
+  })
+    return counter;
   };
 
   // Determine if the array or object contains a given value (using `===`).
