@@ -16,7 +16,7 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
-    if (n===undefined){
+    if (n === undefined){
       return array[0];
     } else {
       return array.slice(0, n)
@@ -26,10 +26,10 @@ var _ = { };
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-    if (n==undefined){
-      return array[array.length-1];
+    if (n === undefined){
+      return array[array.length - 1];
     } else {
-      var lastArray = array.slice(Math.max((array.length-n),0), (array.length))
+      var lastArray = array.slice(Math.max((array.length - n),0), (array.length))
       return lastArray;
     }
   };
@@ -60,7 +60,7 @@ var _ = { };
   _.filter = function(collection, iterator) {
     var result = [];
     for (var num in collection){
-      if (iterator(num)==false) result.push(collection[num]) 
+      if (iterator(num) === false) result.push(collection[num]) 
     }
     return result;
   };
@@ -71,7 +71,7 @@ var _ = { };
     // copying code in and modifying it
     var result = [];
     for (var num in collection){
-      if (iterator(num)==true) result.push(collection[num])
+      if (iterator(num) === true) result.push(collection[num])
     }
     return result;
   };
@@ -79,8 +79,8 @@ var _ = { };
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
     var result = [];
-    for (var i=0; i<array.length;i++){
-      if (_.indexOf(result, array[i]) == -1) result.push(array[i]);  
+    for (var i=0; i < array.length; i++){
+      if (_.indexOf(result, array[i]) === -1) result.push(array[i]);  
     }
     return result;
   };
@@ -92,7 +92,7 @@ var _ = { };
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
     var results = [];
-    if (array == null) return results;
+    if (array === null) return results;
     _.each(array, function(value, index, list) {
       results.push(iterator(value, index, list));
     });
@@ -117,7 +117,7 @@ var _ = { };
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
       return _.map (list, function(value){
-        if (typeof methodName == "function"){
+        if (typeof methodName === "function"){
         return methodName.apply(value, args); 
         }
         else{
@@ -141,6 +141,7 @@ var _ = { };
   //
   _.reduce = function(collection, iterator, initialValue) {
    var counter = null;
+   if (initialValue === null) initialValue = 0;
     _.each(collection, function (value, index, list){
       counter = iterator.call(initialValue, counter, value, index, list);
     })
@@ -162,7 +163,14 @@ var _ = { };
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    var result = true;
+    if (collection === undefined) return true;
+    if (iterator === undefined) return true;
+    if (_.contains(collection, undefined)) return false;
+    _.reduce(collection, function(value, index){
+      if (!iterator.call(value, index)) result = false;  
+    })
+    return result;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
