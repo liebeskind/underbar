@@ -16,21 +16,19 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
-    if (n==undefined){
+    if (n===undefined){
       return array[0];
+    } else {
+      return array.slice(0, n)
     }
-    else{
-      var firstArray = array.slice(0, n)
-      return firstArray;
-      }};
+  };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
     if (n==undefined){
       return array[array.length-1];
-    }
-    else{
+    } else {
       var lastArray = array.slice(Math.max((array.length-n),0), (array.length))
       return lastArray;
     }
@@ -40,10 +38,12 @@ var _ = { };
   // Accepts both arrays and objects.
   _.each = function(collection, iterator) {
       for (var key in collection){
-        var obj = collection[key];
-          iterator(obj, key, collection);
+        if (collection.hasOwnProperty(key)) {
+          var obj = collection[key];
+            iterator(obj, key, collection);
         }
-    };
+      }
+  };
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
@@ -53,7 +53,6 @@ var _ = { };
 
     if (array == null) {
       return -1; }
-    
     for (var i =0; i < array.length; i++) if (array[i] === target) return i; return -1;
   };
 
@@ -61,7 +60,7 @@ var _ = { };
   _.filter = function(collection, iterator) {
     var result = [];
     for (var num in collection){
-      if (iterator(num)==false) result.push(collection[num])
+      if (iterator(num)==false) result.push(collection[num]) 
     }
     return result;
   };
@@ -94,12 +93,10 @@ var _ = { };
     // the members, it also maintains an array of results.
     var results = [];
     if (array == null) return results;
-    
     _.each(array, function(value, index, list) {
       results.push(iterator(value, index, list));
     });
     return results;
-
   };
 
   /*
@@ -112,9 +109,6 @@ var _ = { };
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(array, propertyName) {
-    // TIP: map is really handy when you want to transform an array of
-    // values into a new array of values. _.pluck() is solved for you
-    // as an example of this.
     return _.map(array, function(value){
       return value[propertyName];
     });
@@ -122,13 +116,12 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
-      
       return _.map (list, function(value){
         if (typeof methodName == "function"){
         return methodName.apply(value, args); 
         }
         else{
-          return value[methodName]();
+          return value[methodName].apply(value, args);
             }
         })
   };
