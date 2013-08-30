@@ -295,6 +295,15 @@ var _ = { };
 
   // Shuffle an array.
   _.shuffle = function(array) {
+    var rando;
+    var shuffledArray = [];
+    var item = 0;
+    _.each(array, function(value){
+      rando = Math.ceil(Math.random()*array.length+1); // the +1 should make this between 0 and number of items in array
+      shuffledArray[item++] = shuffledArray[rando]; // increment each card by one and set it equal to a card that is located in a random location
+      shuffledArray[rando] = value; // set the card previously located at the random location to a passthrough value to avoid duplication 
+    })
+    return shuffledArray;
   };
 
 
