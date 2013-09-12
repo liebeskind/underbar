@@ -325,7 +325,17 @@ var _ = { };
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
-  };
+  	
+  	return _.map(collection, function(value, index, list){
+  		
+  		return {
+  			value: value
+  		}
+  	}).sort()
+  		})
+   };
+
+
 
   // Zip together two or more arrays with elements of the same index
   // going together.
