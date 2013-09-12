@@ -55,7 +55,7 @@ var _ = { };
     	return -1;
     } else {
     _.each(array, function(value, index, list){
-			if (value === target){
+			if (value === target && result === -1){
 				return result = index*1;
 			}
 	})
@@ -325,7 +325,6 @@ var _ = { };
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
-  
    };
 
 
