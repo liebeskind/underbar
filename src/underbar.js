@@ -332,8 +332,21 @@ var _ = { };
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
-   	collection.sort(iterator);
-   	return collection
+   	_.pluck(_.map(collection, function(value, index, list) {
+   		return {
+   			value: value,
+   			index: index,
+   			criteria: iterator.call(context, value, index, list)
+   		};
+   	}).sort(collection.iterator), iterator);
+
+
+
+   		/*.sort(function(a, b) {
+   		if (a < b) return 1
+   		if (b < a) return -1 
+   	});
+   	return collection */
   };
 
 
@@ -344,7 +357,17 @@ var _ = { };
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
-  
+  	var args = Array.prototype.slice.apply(arguments);
+  	var result = [];
+
+  	_.each(args, function(value, index, list) {
+  		alert(value)
+  		_.each(value, function(value2, index2, list2) {
+  				return result.push(value2);
+  			
+  		})
+  	})
+  	return result;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
