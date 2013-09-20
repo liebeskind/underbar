@@ -359,15 +359,29 @@ var _ = { };
   _.zip = function() {
   	var args = Array.prototype.slice.apply(arguments);
 	var result = [];
+	var size = 1;
 	
 	for (var i = 0; i < args.length; i++) {
 		result.push([])
 	}	
   	_.each(args, function(value, index, list) {
-  		_.each(value, function(value2, index2, list2) {
+  		_.each(value, function(value2, index2, list2) {  			 
   			 result[index2].push(value2); 
+  			 if (result[index2].length > size) {
+  			 	size = result[index2].length
+  			 }
   		})
+
   	})
+
+  	_.each(result, function(value, index, list) {
+  		alert(size);
+  			if (value.length < size) {
+  				result[index].push(undefined);
+  			}
+  		
+  	}) 
+
   	return result;
   };
 
