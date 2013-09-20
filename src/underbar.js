@@ -358,13 +358,14 @@ var _ = { };
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
   	var args = Array.prototype.slice.apply(arguments);
-  	var result = [];
-
+	var result = [];
+	
+	for (var i = 0; i < args.length; i++) {
+		result.push([])
+	}	
   	_.each(args, function(value, index, list) {
-  		alert(value)
   		_.each(value, function(value2, index2, list2) {
-  				return result.push(value2);
-  			
+  			 result[index2].push(value2); 
   		})
   	})
   	return result;
